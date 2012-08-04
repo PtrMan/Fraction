@@ -41,11 +41,6 @@ typedef struct
 	int nstatistics;
 	int t;
 }Hauto_OBJ;
-typedef struct
-{
-	int i;
-	int j;
-}Point;
 ///////////////////////////////////////////////
 
 //:::::::::::::::MODULE-IO::::::::::::::::::://

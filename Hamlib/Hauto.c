@@ -57,7 +57,6 @@ float Hauto_OBJ_NeighborsValue(float (*Op)(float, float),int i,int j,void ***rea
 }
 void *Hauto_OBJ_FirstNeighbor(int i,int j,void ***readCells,float (*Neighbor_Value)(void*,void*),void* data)
 {
-	Point p;
 	int k,l;
 	for(k=i-1;k<=i+1;k++)
 	{

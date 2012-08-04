@@ -244,7 +244,7 @@ int i=0;
 			glCallList(ControlDL);
 			glPopMatrix();
 			glDisable(GL_TEXTURE_2D);
-			hrend_DrawPixelString(gui[activeGUI].buttons[i].text,
+			hrend_DrawSegmentString(gui[activeGUI].buttons[i].text,
 			gui[activeGUI].buttons[i].x+gui[activeGUI].buttons[i].textoffsetX,gui[activeGUI].buttons[i].y+gui[activeGUI].buttons[i].height/2.0f-0.005f,
 			gui[activeGUI].buttons[i].textsize,gui[activeGUI].buttons[i].textdist);
 			glEnable(GL_TEXTURE_2D);

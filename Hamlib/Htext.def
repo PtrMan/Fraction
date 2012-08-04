@@ -333,7 +333,8 @@ unsigned char hrend_DrawSegmentString(char *ch, float px, float py, float size, 
 	int i=0,j=0;
 	unsigned int ji=0;
 	int count=0;
-		
+	size*=0.1; 		//***
+	distance*=4;
 	glPushMatrix();
 	glTranslatef(px,py,0);
 	glScalef(size,size,0);
