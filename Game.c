@@ -59,6 +59,8 @@ void Game_Init()
     hfio_LoadTex("textures/agent.tga",&AGENT);
     hfio_LoadTex("textures/bridge.tga",&BRIDGE);
     hfio_LoadTex("textures/grass.tga",&GRASS);
+    hfio_LoadTex("textures/food.tga",&FOOD);
+    hfio_LoadTex("textures/spur.tga",&SPUR);
 	////////////////////////// OTHER INIT STUFF ///////////////////////////////////////////////////////////////
     gui_Init(); //since now buttons are involved GUI needs to be inited after texture loading
 	srand(WORLD);

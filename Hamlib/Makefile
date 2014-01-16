@@ -4,7 +4,7 @@ CFLAGS  =  `pkg-config --cflags libglfw` -Wall -g -D_REENTRANT -DVERSION=\"$(VER
 LDFLAGS = -lGL -lGLU -lglut -lGLEW -lglfw -lm -lpthread
 SERVER_LDFLAGS = -lm -lpthread -lglfw
 
-OBJ = Hrend.o Hinput.o Hcam.o Hnav.o Hfio.o Hgui.o Hutil.o Hshade.o Hauto.o
+OBJ = Hrend.o Hinput.o Hcam.o Hnav.o Hfio.o Hgui.o Hutil.o Hshade.o Hauto.o Hsarsal.o Hsom.o
 
 all: $(OBJ)
 

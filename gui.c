@@ -7,6 +7,10 @@
 #define maxplayers 100
 enum{none,leftup,rightdown,copy,paste} mouse_operation[maxplayers];
 int lux[maxplayers],luy[maxplayers],rdx[maxplayers],rdy[maxplayers],sx[maxplayers],sy[maxplayers],type[maxplayers],hasbase[maxplayers],*data[maxplayers];
+//GLOBAL BRAIN
+int SOMSIZE=16, NINPUTS=9;
+Hsom_OBJ *brain_som;
+Hsarsal_OBJ *brain_sarsal;
 void gui_mouse_down(int player,EventArgs *e)
 {															
 	int i=e->mx,j=e->my,x,y; 
@@ -58,6 +62,15 @@ void gui_mouse_down(int player,EventArgs *e)
                 #ifdef DIRECT_PLACEMENT
                 SetCell(i,j,Cell,wavefront,1);
                 SetCell(i,j,Cell,state,type[player]);
+                { //AGENT
+                    if(type[player]==AGENT)
+                    {
+                        printf("AGENT INIT");
+                        SetCell(i,j,Cell,action,-1);
+                        SetCell(i,j,Cell,som,brain_som);
+                        SetCell(i,j,Cell,sarsal,brain_sarsal);
+                    }
+                }
                 #endif
                 #ifndef DIRECT_PLACEMENT
 				SetCell(i,j,Cell,command,type[player]);
@@ -124,6 +137,7 @@ void gui_key_up(int player,EventArgs *e)
     if(e->mk=='O'){ type[player]=OR; }
     if(e->mk=='C'){ type[player]=CURRENT; }
     if(e->mk=='M'){ type[player]=BRIDGE; }
+    if(e->mk=='J'){ type[player]=FOOD; }
 }
 void gui_button(int player,int i)
 {
@@ -158,11 +172,18 @@ void gui_buttons_draw()
 {
     hrend_SelectColor(1,1,1,1);
     //hrend_DrawObj(0.1,0,0,0.03,1,COMMAND);
+    glPushMatrix();
+    glTranslatef(0,0.4,0);
+    glScalef(0.5,0.5,0.5);
+    hsom_OBJ_Render(brain_som);
+    glPopMatrix();
     hgui_RENDER();
 }
 void gui_Init()
 {
 	int client=0,i;
+    brain_som=hsom_OBJ_NEW(SOMSIZE,NINPUTS,0.5,0.5,1.0,1.0,0,0,1); //0.5, 0.5, kick gamma and eta temporary
+    brain_sarsal=hsarsal_OBJ_NEW(SOMSIZE,4,0.5,0.5,0.5);
 	hinput_AddMouseDown(client_send_mouse_down);
 	hinput_AddMouseDragged(client_send_mouse_down);
 	hinput_AddKeyUp(client_send_key_up);
@@ -193,6 +214,7 @@ void gui_Init()
     hgui_AddSimpleElem(0.59,0.91,0.18,0.04,"BRIDGE",client_send_button,'M',BRIDGE);
     hgui_AddSimpleElem(0.78,0.91,0.09,0.04,"NEG",client_send_button,'N',NEG);
 	hgui_AddSimpleElem(0.88,0.91,0.09,0.04,"AND",client_send_button,'A',AND);
+    hgui_AddSimpleElem(0.9,0,0.09,0.04,"FOOD",client_send_button,'J',FOOD);
     hrend_SetGUIRenderRoutine(gui_buttons_draw);
 
     if(!SINGLEPLAYER)

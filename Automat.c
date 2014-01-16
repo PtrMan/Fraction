@@ -159,6 +159,63 @@ void Electricity_Simulate(Statistics* stats,int t,int i,int j,Cell *writeme,Cell
             writeme_state(OFFCURRENT);
     }
 }
+void Agent_Simulate(Statistics* stats,int t,int i,int j,Cell *writeme,Cell* readme,Cell* left,Cell* right,Cell* up,Cell* down,Cell* left_up,Cell* left_down,Cell* right_up,Cell* right_down,Cell ***readcells)
+{
+    float observe(float s){return 10.0/s;}
+    int AgentCanPass(Cell *c){ return c->state!=ROCK && c->state!=CURRENT && c->state!=OFFCURRENT && c->state!=AND && c->state!=OR && c->state!=NEG && c->state!=XOR && c->state!=SWITCH && c->state!=OFFSWITCH && c->state!=BRIDGE; }
+    //DELETE AGENT TRACE AFTER SOME TIME
+    if(readme->state==SPUR && readme->lastchange>50)
+        writeme_state(GRASS);
+    //THE AGENT SEES THE NEIGHBOR CELLS AND TRIES TO FIND FOOD
+    if(readme->state==AGENT && readme->som!=NULL)
+    {
+        printf("AGENT STEP\n");
+        float input[]={observe(left_up->state),  observe(up->state),     observe(right_up->state),
+                       observe(left->state),     observe(readme->state), observe(right->state),
+                       observe(left_down->state),observe(down->state),   observe(right_down->state)};
+        hsom_OBJ_Adapt(readme->som,input);
+        writeme->action=hsarsal_OBJ_selectAction(readme->sarsal,hsom_OBJ_getWinnerX(readme->som),hsom_OBJ_getWinnerY(readme->som),NeighborsValue(op_plus,being_a,FOOD)>0);
+    }
+    //AGENT ACTIONS
+    if(AgentCanPass(readme) && right->state==AGENT && right->action==0)
+    {
+        writeme_state(AGENT);
+        SetCell(i,j,Cell,som,right->som);
+        SetCell(i,j,Cell,sarsal,right->sarsal);
+        SetCell(i,j,Cell,action,-1);
+        SetCell(i+1,j,Cell,state,SPUR);
+    }
+    if(AgentCanPass(readme) && left->state==AGENT && left->action==1)
+    {
+        writeme_state(AGENT);
+        SetCell(i,j,Cell,som,left->som);
+        SetCell(i,j,Cell,sarsal,left->sarsal);
+        SetCell(i,j,Cell,action,-1);
+        SetCell(i-1,j,Cell,state,SPUR);
+    }
+    if(AgentCanPass(readme) && up->state==AGENT && up->action==2)
+    {
+        writeme_state(AGENT);
+        SetCell(i,j,Cell,som,up->som);
+        SetCell(i,j,Cell,sarsal,up->sarsal);
+        SetCell(i,j,Cell,action,-1);
+        SetCell(i,j+1,Cell,state,SPUR);
+    }
+    if(AgentCanPass(readme) && down->state==AGENT && down->action==3)
+    {
+        writeme_state(AGENT);
+        SetCell(i,j,Cell,som,down->som);
+        SetCell(i,j,Cell,sarsal,down->sarsal);
+        SetCell(i,j,Cell,action,-1);
+        SetCell(i,j-1,Cell,state,SPUR);
+    }
+    //FOOD GETS EATEN BY THE AGENT
+    if(readme->state==FOOD && NeighborsValue(op_plus,being_a,AGENT)>0)
+        writeme_state(GRASS);
+    //SWITCH GETS SWITCHED BY AI
+    if((readme->state==SWITCH || readme->state==OFFSWITCH) && NeighborsValue(op_plus,being_a,AGENT)>0 && readme->lastchange>50)
+        writeme_state(readme->state==SWITCH ? OFFSWITCH : SWITCH);
+}
 void Automat_Simulate(Statistics* stats,int t,int i,int j,Cell *writeme,Cell* readme,Cell* left,Cell* right,Cell* up,Cell* down,Cell* left_up,Cell* left_down,Cell* right_up,Cell* right_down,Cell ***readcells)
 {
 	memcpy(writeme,readme,sizeof(Cell));
@@ -173,5 +230,6 @@ void Automat_Simulate(Statistics* stats,int t,int i,int j,Cell *writeme,Cell* re
 	Population_Simulate(stats,t,i,j,writeme,readme,left,right,up,down,left_up,left_down,right_up,right_down,readcells);
 	Weather_Simulate(stats,t,i,j,writeme,readme,left,right,up,down,left_up,left_down,right_up,right_down,readcells);
     Electricity_Simulate(stats,t,i,j,writeme,readme,left,right,up,down,left_up,left_down,right_up,right_down,readcells);
+    Agent_Simulate(stats,t,i,j,writeme,readme,left,right,up,down,left_up,left_down,right_up,right_down,readcells);
 }
 

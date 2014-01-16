@@ -38,6 +38,10 @@ typedef struct
     //logic:
     int wavefront; int value; 
     int value2; //bridge needs 2 values..
+    
+    Hsom_OBJ *som;
+    Hsarsal_OBJ *sarsal;
+    int action;
 	
 }Cell;
 Cell *Cell_NEW(int i,int j); 		 									//constructor for a new cell called for every cell when the automat constructor is called
