@@ -23,6 +23,38 @@ void Game_Thread()
 		statistics_next(automat,s);
 		Hauto_OBJ_Exec(automat,s);
 		set_finished(1);
+        //save to file such that python can read it
+        {
+            int i,j,k;
+            char* toWrite=(char*) malloc ((worldsize*worldsize+worldsize)*sizeof(char));
+            system("rm toPy.txt");
+            k=0;
+            for(i=0;i<automat->n;i++)
+            {
+                for(j=0;j<automat->n;j++)
+                {
+                    char dummy='#';
+                    int state=GetCell(i,j,Cell,state);
+                    if(state==ROCK)
+                        dummy='R';
+                    if(state==OPENROCK)
+                        dummy='O';
+                    if(state==SWITCH)
+                        dummy='1';
+                    if(state==OFFSWITCH)
+                        dummy='0';
+                    if(state==FOOD)
+                        dummy='F';
+                    toWrite[k]=dummy;
+                    k++;
+                }
+                toWrite[k]='\n';
+                k++;
+            }
+            hfio_textFileWrite("toPy.txt",toWrite);
+        }
+        
+        //
 		if(automat->t%10==0)
 			printf("%f people\n",s->amount_of_people);
 		laststep=get_step();
