@@ -1,4 +1,4 @@
-from itertools	 import chain, combinations
+from itertools	 import chain, combinations, product
 from collections import defaultdict
 from subprocess import Popen, PIPE, STDOUT
 import re,os
@@ -121,6 +121,41 @@ def PrettyTell(txt,ret=""): #make some syntactic modifications here if needed or
     return ret
 
 #Agent API:
+
+def powerset(iterable):
+    s = list(iterable)
+    return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
+
+def tpriory(States,minQual): #a sort of special apriory algorithm, designed to work one-directional in time and just having one quality tune parameter
+    Rules={}
+    for l in range(1,len(States)):
+        for k in range(len(States)-1):
+            superM=list(product(powerset(States[k]),powerset(States[k+l])))
+            for i in range(len(superM)):
+                ELEM=superM[i]
+                if [] not in ELEM:
+                    try:
+                        Rules[str(ELEM)]+=1              #supply increases quality of rule
+                    except:
+                        Rules[str(ELEM)]=1
+                    for j in range(len(States)-1):
+                        if k!=j:
+                            superM2=list(product(powerset(States[j]),powerset(States[j+l])))
+                            for h in range(len(superM2)):
+                                ELEM2=superM2[h]
+                                if [] not in ELEM2:
+                                    if ELEM!=[] and ELEM[0] in [E[0] for E in ELEM2 if len(E)>0] and not all(RES in [E[1] for E in ELEM2] for RES in ELEM[1]):
+                                        Rules[str(ELEM)]-=1  #lack of confidence decreases the quality of rule
+        return [z for z in sorted(Rules, key=Rules.get) if Rules[z]>minQual]
+
+def ChainTogether(States,minQual):
+    Chain=[]
+    for y in tpriory(States,minQual):
+        x=eval(y)
+        Supli=list(reversed([a for a in x[0]]+[b for b in x[1]]))
+        for i in range(len(Supli)-1):
+            Chain+=[Supli[i]+" after "+Supli[i+1]]
+    return list(set(Chain))
 
 def ResetKnowledge():
 	global Knowledge
