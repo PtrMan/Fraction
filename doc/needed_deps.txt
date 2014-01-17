@@ -1,0 +1,10 @@
+Programming languages:
+gcc with C90 support (standard)
+Python 2.7 or newer should also work (but not 3)
+SwiProlog 6.0.0 or newer should also work
+
+Additional depencies:
+glfw-2.7.6
+glew
+
+
