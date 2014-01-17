@@ -45,6 +45,8 @@ void Game_Thread()
                         dummy='0';
                     if(state==FOOD)
                         dummy='F';
+                    if(state==AGENT)
+                        dummy='A';
                     toWrite[k]=dummy;
                     k++;
                 }
