@@ -9,8 +9,6 @@ enum{none,leftup,rightdown,copy,paste} mouse_operation[maxplayers];
 int lux[maxplayers],luy[maxplayers],rdx[maxplayers],rdy[maxplayers],sx[maxplayers],sy[maxplayers],type[maxplayers],hasbase[maxplayers],*data[maxplayers];
 //GLOBAL BRAIN
 int SOMSIZE=16, NINPUTS=9;
-Hsom_OBJ *brain_som;
-Hsarsal_OBJ *brain_sarsal;
 void gui_mouse_down(int player,EventArgs *e)
 {															
 	int i=e->mx,j=e->my,x,y; 
@@ -67,8 +65,6 @@ void gui_mouse_down(int player,EventArgs *e)
                     {
                         printf("AGENT INIT");
                         SetCell(i,j,Cell,action,-1);
-                        SetCell(i,j,Cell,som,brain_som);
-                        SetCell(i,j,Cell,sarsal,brain_sarsal);
                     }
                 }
                 #endif
@@ -171,19 +167,11 @@ void gui_button(int player,int i)
 void gui_buttons_draw()
 {
     hrend_SelectColor(1,1,1,1);
-    //hrend_DrawObj(0.1,0,0,0.03,1,COMMAND);
-    glPushMatrix();
-    glTranslatef(0,0.4,0);
-    glScalef(0.5,0.5,0.5);
-    hsom_OBJ_Render(brain_som);
-    glPopMatrix();
     hgui_RENDER();
 }
 void gui_Init()
 {
 	int client=0,i;
-    brain_som=hsom_OBJ_NEW(SOMSIZE,NINPUTS,0.5,0.5,1.0,1.0,0,0,1); //0.5, 0.5, kick gamma and eta temporary
-    brain_sarsal=hsarsal_OBJ_NEW(SOMSIZE,4,0.5,0.5,0.5);
 	hinput_AddMouseDown(client_send_mouse_down);
 	hinput_AddMouseDragged(client_send_mouse_down);
 	hinput_AddKeyUp(client_send_key_up);

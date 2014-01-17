@@ -24,5 +24,6 @@ Hauto_OBJ *automat;														//the world automat, read only
 float **landscape;														//read only
 
 void Game_Init();
+int Get_Action();
 
 #endif

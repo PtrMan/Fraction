@@ -6,6 +6,11 @@
 #include "gui.h"
 #include "Statistics.h"
 
+int mom_action=0;
+int Get_Action()
+{
+    return mom_action;
+}
 void Game_Thread() 
 {
 	Statistics *s=statistics_new();
@@ -55,8 +60,18 @@ void Game_Thread()
             }
             hfio_textFileWrite("toPy.txt",toWrite);
         }
-        
-        //
+        system("python MOM_Agent_Fraction.py");
+        {
+            char *toRead=hfio_textFileRead("fromPy.txt");
+            if(toRead[0]=='0')
+                mom_action=0;
+            if(toRead[0]=='1')
+                mom_action=1;
+            if(toRead[0]=='2')
+                mom_action=2;
+            if(toRead[0]=='3')
+                mom_action=3;
+        } 
 		if(automat->t%10==0)
 			printf("%f people\n",s->amount_of_people);
 		laststep=get_step();

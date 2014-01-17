@@ -167,14 +167,9 @@ void Agent_Simulate(Statistics* stats,int t,int i,int j,Cell *writeme,Cell* read
     if(readme->state==SPUR && readme->lastchange>50)
         writeme_state(GRASS);
     //THE AGENT SEES THE NEIGHBOR CELLS AND TRIES TO FIND FOOD
-    if(readme->state==AGENT && readme->som!=NULL)
+    if(readme->state==AGENT)
     {
-        printf("AGENT STEP\n");
-        float input[]={observe(left_up->state),  observe(up->state),     observe(right_up->state),
-                       observe(left->state),     observe(readme->state), observe(right->state),
-                       observe(left_down->state),observe(down->state),   observe(right_down->state)};
-        hsom_OBJ_Adapt(readme->som,input);
-        writeme->action=hsarsal_OBJ_selectAction(readme->sarsal,hsom_OBJ_getWinnerX(readme->som),hsom_OBJ_getWinnerY(readme->som),NeighborsValue(op_plus,being_a,FOOD)>0);
+        writeme->action=Get_Action();
     }
     //AGENT ACTIONS
     if(AgentCanPass(readme) && right->state==AGENT && right->action==0)
