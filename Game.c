@@ -52,6 +52,8 @@ void Game_Thread()
                         dummy='F';
                     if(state==AGENT)
                         dummy='A';
+                    if(state==WATER)
+                        dummy='W';
                     toWrite[k]=dummy;
                     k++;
                 }
