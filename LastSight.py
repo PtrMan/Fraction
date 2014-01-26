@@ -1,1 +1,2 @@
-LastViewOfSight=['#', '#', '#', '#', 'A', '#', '#', '#', '#']
+Assoc={(13, 22): ('R', 'rock13x22 is not open'), (13, 23): ('R', 'rock13x23 is not open'), (13, 17): ('R', 'rock13x17 is not open'), (13, 18): ('R', 'rock13x18 is not open'), (13, 19): ('R', 'rock13x19 is not open'), (13, 20): ('R', 'rock13x20 is not open'), (13, 21): ('R', 'rock13x21 is not open')};
+Finished=False;
