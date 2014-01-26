@@ -7,7 +7,7 @@
 #include "Hamlib/Hsarsal.h"
 
 #define WORLD 		  1
-#define worldsize  	  64
+#define worldsize  	  32
 #define ALLOW_SHADERS   0
 #define MAX_HOUSES    200
 #define MAX_PEOPLE	  100

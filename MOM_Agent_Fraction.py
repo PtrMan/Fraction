@@ -1,4 +1,5 @@
 from MOM import *
+import LastSight
 
 Goal="lol should be active" #example definition which makes sense
 Actions=["switch","switch2","switch3"]
@@ -35,9 +36,17 @@ for y in range(sizey):
     for x in range(sizex):
         if world[y][x]=="A":
             agenty,agentx=y,x
-
 print agenty,agentx
-            
+
+try:
+    ViewOfSight=[world[agenty-1][agentx-1],world[agenty-1][agentx],world[agenty-1][agentx+1],
+                 world[agenty  ][agentx-1],world[agenty  ][agentx],world[agenty  ][agentx+1],
+                 world[agenty+1][agentx-1],world[agenty+1][agentx],world[agenty+1][agentx+1]]
+except:
+    ViewOfSight=[]
+
+with open("LastSight.py", "w") as text_file: text_file.write("LastViewOfSight="+str(ViewOfSight))
+
 #print HandleSituation() #test
 action=1;
 with open("fromPy.txt", "w") as text_file: text_file.write(str(action))
