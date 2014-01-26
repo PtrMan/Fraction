@@ -24,7 +24,20 @@ def HandleSituation(Input=[]):
 		if "Path=[]" not in Sol:
 			return " my plan is: "+Sol
 		RetractLast()
-    
+
+with open("toPy.txt", "r") as text_file: 
+    world=text_file.read().split("\n")
+
+agenty=0; agentx=0;
+sizey=len(world)-1
+sizex=len(world[0])
+for y in range(sizey):
+    for x in range(sizex):
+        if world[y][x]=="A":
+            agenty,agentx=y,x
+
+print agenty,agentx
+            
 #print HandleSituation() #test
 action=1;
 with open("fromPy.txt", "w") as text_file: text_file.write(str(action))
