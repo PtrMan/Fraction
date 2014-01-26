@@ -3,7 +3,7 @@ from MOM import *
 from random import random
 from copy import deepcopy
 
-Goal="lol should be active" #example definition which makes sense
+Goal="something should be open" #example definition which makes sense
 Actions=["switch","switch2","switch3"]
 OldStates=[list(set(z)) for z in [["light is active"],["lol is active"],["light is active"],["lol is active"],["light is active"],["lol is active"],["stefan takes a sip","this is noise","switch2 is active"],["stefan takes a sip"],
 ["this is noise","switch2 is active","switch is active","switch3 is active"],["stefan takes a sip","light is active","this is a example"],["switch is active","switch3 is active"],["light is active","watafaq"],["switch is active","thomson is cool","switch3 is active"],["light is active","i like sand"]]]
@@ -49,11 +49,12 @@ for y in range(sizey):
         if world[y][x]=="O" and NoName(y,x):
             Assoc[(y,x)]=(world[y][x],"rock"+str(y)+"x"+str(x)+" is open")
 print agenty,agentx
-print Assoc
-
-#print HandleSituation() #test
+OldStates=NewView=[z[1] for z in [Assoc[k] for k in Assoc.keys()]]
+del Mem[0]
+Mem=Mem+NewView
+print HandleSituation() #test
 action=1;
-with open("LastSight.py", "w") as text_file: text_file.write("Assoc="+str(Assoc)+";\nFinished=False;")
+with open("LastSight.py", "w") as text_file: text_file.write("Mem="+str(Mem)+"\nAssoc="+str(Assoc)+"\nFinished=False")
 with open("fromPy.txt", "w")   as text_file: text_file.write(str(action))
 
 
