@@ -57,3 +57,6 @@ do(Var1,equals,Var2,T0,P) :- Var1#=Var2.
 do(Var1,unequals,Var2,T0,P) :- Var1#\=Var2.
 do(Var1,has,distincts,T0,P) :- all_distinct(Var1).
  iss(Var1,distinct,T0,P) :- all_distinct(Var1).
+iss(rock13x17,notopen,T0+1,Path):- iss(rock13x17,notopen,T0,P),append([rock13x17,is,notopen],P,Path).
+mem(switch,active,0) .
+iss(switch,active,0,P).

@@ -124,6 +124,9 @@ def PrettyTell(txt,ret=""): #make some syntactic modifications here if needed or
 
 def powerset(iterable):
     s = list(iterable)
+    print "powerset with cardinality ",2**len(iterable)
+    if len(iterable)>15: #secure powerset :D
+        return [[iterable[i]] for i in range(15)]
     return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
 
 def tpriory(States,minQual): #a sort of special apriory algorithm, designed to work one-directional in time and just having one quality tune parameter

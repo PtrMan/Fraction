@@ -134,6 +134,66 @@ void gui_key_up(int player,EventArgs *e)
     if(e->mk=='C'){ type[player]=CURRENT; }
     if(e->mk=='M'){ type[player]=BRIDGE; }
     if(e->mk=='J'){ type[player]=FOOD; }
+    if(e->mk=='L') //load level from file
+    {
+        int i,j=0,k=0;
+        char *toRead=hfio_textFileRead("load.txt");
+        for(i=0;i<worldsize*worldsize+worldsize;i++)
+        {
+            if(toRead[i]!='\n')
+                k++;
+            if(toRead[i]=='\n')
+            {
+                k=0;
+                j++;
+            }
+            else
+            if(toRead[i]=='R')
+                SetCell(k,j,Cell,state,ROCK);
+            else
+            if(toRead[i]=='O')
+                SetCell(k,j,Cell,state,OPENROCK);
+            else
+            if(toRead[i]=='1')
+                SetCell(k,j,Cell,state,SWITCH);
+            else
+            if(toRead[i]=='0')
+                SetCell(k,j,Cell,state,OFFSWITCH);
+            else
+            if(toRead[i]=='F')
+                SetCell(k,j,Cell,state,FOOD);
+            else
+            if(toRead[i]=='A')
+                SetCell(k,j,Cell,state,AGENT);
+            else
+            if(toRead[i]=='W')
+                SetCell(k,j,Cell,state,WATER);
+            else
+            if(toRead[i]=='C')
+                SetCell(k,j,Cell,state,OFFCURRENT);
+            else
+            if(toRead[i]=='A')
+                SetCell(k,j,Cell,state,AND);
+            else
+            if(toRead[i]=='U')
+                SetCell(k,j,Cell,state,OR);
+            else
+            if(toRead[i]=='N')
+                SetCell(k,j,Cell,state,NEG);
+            else
+            if(toRead[i]=='H')
+                SetCell(k,j,Cell,state,HOUSE);
+            else
+            if(toRead[i]=='S')
+                SetCell(k,j,Cell,state,STREET);
+            else
+            if(toRead[i]=='B')
+                SetCell(k,j,Cell,state,BRIDGE);
+            else
+            if(toRead[i]=='P')
+                SetCell(k,j,Cell,state,FOREST);
+        }
+    }
 }
 void gui_button(int player,int i)
 {

@@ -15,6 +15,7 @@ void Game_Thread()
 {
 	Statistics *s=statistics_new();
 	int laststep=-1;
+    
 	while(1)
 	{
 		if(!SINGLEPLAYER && get_step()==laststep)
@@ -54,6 +55,22 @@ void Game_Thread()
                         dummy='A';
                     if(state==WATER)
                         dummy='W';
+                    if(state==OFFCURRENT || state==CURRENT)
+                        dummy='C';
+                    if(state==AND)
+                        dummy='A';
+                    if(state==OR)
+                        dummy='U';
+                    if(state==NEG)
+                        dummy='N';
+                    if(state==HOUSE || state==HOUSE_MEN)
+                        dummy='H';
+                    if(state==STREET || state==STREET_MEN)
+                        dummy='S';
+                    if(state==BRIDGE)
+                        dummy='B';
+                    if(state==FOREST)
+                        dummy='P';
                     toWrite[k]=dummy;
                     k++;
                 }
