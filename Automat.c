@@ -208,7 +208,7 @@ void Agent_Simulate(Statistics* stats,int t,int i,int j,Cell *writeme,Cell* read
     if(readme->state==FOOD && NeighborsValue(op_plus,being_a,AGENT)>0)
         writeme_state(GRASS);
     //SWITCH GETS SWITCHED BY AI
-    if((readme->state==SWITCH || readme->state==OFFSWITCH) && NeighborsValue(op_plus,being_a,AGENT)>0 && readme->lastchange>50)
+    if((readme->state==SWITCH || readme->state==OFFSWITCH) && NeighborsValue(op_plus,being_a,AGENT)>0 && readme->lastchange>5)
         writeme_state(readme->state==SWITCH ? OFFSWITCH : SWITCH);
 }
 void Automat_Simulate(Statistics* stats,int t,int i,int j,Cell *writeme,Cell* readme,Cell* left,Cell* right,Cell* up,Cell* down,Cell* left_up,Cell* left_down,Cell* right_up,Cell* right_down,Cell ***readcells)
