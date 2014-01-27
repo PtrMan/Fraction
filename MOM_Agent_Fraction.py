@@ -51,8 +51,8 @@ for y in range(sizey):
 print agenty,agentx
 OldStates=NewView=[z[1] for z in [Assoc[k] for k in Assoc.keys()]]
 del Mem[0]
-Mem=Mem+NewView
-print HandleSituation() #test
+Mem=Mem+[NewView]
+#####print HandleSituation() #test
 action=1;
 with open("LastSight.py", "w") as text_file: text_file.write("Mem="+str(Mem)+"\nAssoc="+str(Assoc)+"\nFinished=False")
 with open("fromPy.txt", "w")   as text_file: text_file.write(str(action))
