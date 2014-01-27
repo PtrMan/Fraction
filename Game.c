@@ -130,11 +130,11 @@ void Game_Init()
     hfio_LoadTex("textures/food.tga",&FOOD);
     hfio_LoadTex("textures/spur.tga",&SPUR);
 	////////////////////////// OTHER INIT STUFF ///////////////////////////////////////////////////////////////
-    gui_Init(); //since now buttons are involved GUI needs to be inited after texture loading
 	srand(WORLD);
 	landscape=Generate_PerlinNoise(worldsize,worldsize,Generate_WhiteNoise(worldsize,worldsize),8,0);
 	automat=Hauto_OBJ_NEW(worldsize,Automat_Simulate,Cell_NEW);
 	Generate_World();
+    gui_Init(); //since now buttons are involved GUI needs to be inited after texture loading
 	Thread_NEW(Game_Thread,NULL);
 }
 int main()

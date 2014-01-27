@@ -6,7 +6,8 @@
 #include "Hamlib/Hsom.h"
 #include "Hamlib/Hsarsal.h"
 
-#define WORLD 		  1
+#define LOAD          1 //load level from load.txt in beginning?
+#define WORLD 		  1 //seed - every natural number will result in a different world
 #define worldsize  	  32
 #define ALLOW_SHADERS   0
 #define MAX_HOUSES    200
