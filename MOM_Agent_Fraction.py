@@ -66,7 +66,7 @@ Mem=Mem+[NewView]
 Actions=list(set(["switch"+z.split(" ")[0] for z in str(Mem).split("switch") if " " in z]))
 #print "Actions",Actions
 OldStates=deepcopy(Mem)
-Ret=HandleSituation() #test
+Ret=HandleSituation(Input) #test
 
 ##########OK THE AI HAS GAINED ENOUGH KNOWLDGE TO PLAN!!! ITS TIME TO FIND THE PATH FOR THE FIRST STEP AND EXECUTE IT :)
 def Reconstruct_Taken_Path(parent,start,target):
