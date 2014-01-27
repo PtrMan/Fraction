@@ -34,6 +34,13 @@ def HandleSituation(Input=[]):
 with open("toPy.txt", "r") as text_file: 
     world=text_file.read().split("\n")
 
+Input=[] #make giving hints during runtime per console or text editor possible :)
+try:
+    with open("hints.txt", "r") as text_file: 
+        Input=text_file.read().split("\n")
+except:
+    None
+
 OldAssoc=deepcopy(Assoc)
 Assoc={}
 agenty=0; agentx=0;
