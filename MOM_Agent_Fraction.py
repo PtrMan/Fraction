@@ -1,6 +1,6 @@
 from LastSight import *
 from MOM import *
-from random import random
+from random import random, choice
 from copy import deepcopy
 
 Goal="rock18x13 should be open" #example definition which makes sense
@@ -26,8 +26,10 @@ def HandleSituation(Input=[]):
 		PrettyTell(g+" is active")
 		Sol=PrettyTell("plan "+Goal+"?") 
 		if "Path=[]" not in Sol and str(Sol)!="set([])":
-			return " my plan is: "+g+" and then "+Sol
+            print " my plan is: "+g+" and then "+Sol
+			return g
 		RetractLast()
+    return None
 
 with open("toPy.txt", "r") as text_file: 
     world=text_file.read().split("\n")
@@ -57,8 +59,16 @@ Mem=Mem+[NewView]
 Actions=list(set(["switch"+z.split(" ")[0] for z in str(Mem).split("switch") if " " in z]))
 print "Actions",Actions
 OldStates=deepcopy(Mem)
-print HandleSituation() #test
-action=1;
+Ret=HandleSituation() #test
+if Ret==None:
+    action=choice([0,1,2,3])
+
+##########OK THE AI HAS GAINED ENOUGH KNOWLDGE TO PLAN!!! ITS TIME TO FIND THE PATH FOR THE FIRST STEP AND EXECUTE IT :)
+
+
+
+######################################################################################################
+
 with open("LastSight.py", "w") as text_file: text_file.write("Mem="+str(Mem)+"\nAssoc="+str(Assoc)+"\nExtracted="+str(Extracted))
 with open("fromPy.txt", "w")   as text_file: text_file.write(str(action))
 

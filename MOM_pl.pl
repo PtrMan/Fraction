@@ -58,11 +58,11 @@ do(Var1,unequals,Var2,T0,P) :- Var1#\=Var2.
 do(Var1,has,distincts,T0,P) :- all_distinct(Var1).
  iss(Var1,distinct,T0,P) :- all_distinct(Var1).
 iss(rock18x13,open,T0+1,Path):- iss(switch18x15,active,T0,P),append([switch18x15,is,active],P,Path).
-iss(switch18x15,active,T0+1,Path):- iss(switch18x15,active,T0,P),append([switch18x15,is,active],P,Path).
-iss(switch18x15,active,T0+1,Path):- iss(rock18x13,notopen,T0,P),append([rock18x13,is,notopen],P,Path).
+iss(rock18x13,notopen,T0+1,Path):- iss(rock18x13,notopen,T0,P),append([rock18x13,is,notopen],P,Path).
 iss(rock18x13,notopen,T0+1,Path):- iss(switch18x15,active,T0,P),append([switch18x15,is,active],P,Path).
+iss(switch18x15,active,T0+1,Path):- iss(rock18x13,notopen,T0,P),append([rock18x13,is,notopen],P,Path).
 iss(rock18x13,open,T0+1,Path):- iss(rock18x13,open,T0,P),append([rock18x13,is,open],P,Path).
 iss(switch18x15,active,T0+1,Path):- iss(rock18x13,open,T0,P),append([rock18x13,is,open],P,Path).
-iss(rock18x13,notopen,T0+1,Path):- iss(rock18x13,notopen,T0,P),append([rock18x13,is,notopen],P,Path).
+iss(switch18x15,active,T0+1,Path):- iss(switch18x15,active,T0,P),append([switch18x15,is,active],P,Path).
 mem(switch18x15,active,0) .
 iss(switch18x15,active,0,P).
