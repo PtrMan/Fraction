@@ -23,12 +23,12 @@ def HandleSituation(Input=[]):
     OldStates+=[Input] #world step finished
     for g in Current2: PrettyTell(g)  #now we need to find a way to achieve our goal with our actions, since we have to begin with one action.
     for g in Actions: #we need go through our actions and plan
-		PrettyTell(g+" is active")
-		Sol=PrettyTell("plan "+Goal+"?") 
-		if "Path=[]" not in Sol and str(Sol)!="set([])":
+        PrettyTell(g+" is active")
+        Sol=PrettyTell("plan "+Goal+"?") 
+        if "Path=[]" not in Sol and str(Sol)!="set([])":
             print " my plan is: "+g+" and then "+Sol
-			return g
-		RetractLast()
+            return g
+        RetractLast()
     return None
 
 with open("toPy.txt", "r") as text_file: 
@@ -60,13 +60,48 @@ Actions=list(set(["switch"+z.split(" ")[0] for z in str(Mem).split("switch") if 
 print "Actions",Actions
 OldStates=deepcopy(Mem)
 Ret=HandleSituation() #test
-if Ret==None:
-    action=choice([0,1,2,3])
 
 ##########OK THE AI HAS GAINED ENOUGH KNOWLDGE TO PLAN!!! ITS TIME TO FIND THE PATH FOR THE FIRST STEP AND EXECUTE IT :)
+def Reconstruct_Taken_Path(parent,start,target):
+    path=[target]
+    current=target
+    while current!=start:
+        current=parent[current]
+        path.append(current)
+    return list(reversed(path))
 
-
-
+def Shortest_Path(start,target,M,sz):
+     besucht=set([])
+     parent={}
+     queue=[]
+     queue.append(start)
+     while len(queue)>0:
+         active=queue.pop(0)
+         besucht.add(active)
+         if active == target:
+             return Reconstruct_Taken_Path(parent,start,target)
+         for (px,py) in [(active[0]-1,active[1]),(active[0]+1,active[1]),(active[0],active[1]+1),(active[0],active[1]-1)]:
+             if px<0 or py<0 or px>=sz or py>=sz or (px,py) in besucht:# or M[px][py]!='#':
+                 continue
+             parent[(px,py)]=active
+             if (px,py) not in queue:
+                 queue.append((px,py))
+action=1
+if Ret==None:
+    action=choice([0,1,2,3]) #if it has not gained enough knowledge, then select randomly
+else:
+##########OK THE AI HAS GAINED ENOUGH KNOWLDGE TO PLAN!!! ITS TIME TO FIND THE PATH FOR THE FIRST STEP AND EXECUTE IT :)
+    Y=int(Ret.replace("switch","").split("x")[0])
+    X=int(Ret.replace("switch","").split("x")[1])
+    (Soly,Solx)=Shortest_Path((agenty,agentx),(Y,X),world,sizex)[0]
+    if Soly>agenty:
+        action=1
+    if Soly<agenty:
+        action=2
+    if Solx>agentx:
+        action=3
+    if Solx<agentx:
+        action=4
 ######################################################################################################
 
 with open("LastSight.py", "w") as text_file: text_file.write("Mem="+str(Mem)+"\nAssoc="+str(Assoc)+"\nExtracted="+str(Extracted))
