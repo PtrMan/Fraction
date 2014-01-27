@@ -3,7 +3,7 @@ from MOM import *
 from random import random, choice
 from copy import deepcopy
 
-Goal="rock18x13 should be open" #example definition which makes sense
+Goal="rock17x12 should be open" #example definition which makes sense
 Actions=["switch","switch2","switch3"]
 OldStates=[list(set(z)) for z in [["light is active"],["lol is active"],["light is active"],["lol is active"],["light is active"],["lol is active"],["stefan takes a sip","this is noise","switch2 is active"],["stefan takes a sip"],
 ["this is noise","switch2 is active","switch is active","switch3 is active"],["stefan takes a sip","light is active","this is a example"],["switch is active","switch3 is active"],["light is active","watafaq"],["switch is active","thomson is cool","switch3 is active"],["light is active","i like sand"]]]
@@ -37,7 +37,7 @@ with open("toPy.txt", "r") as text_file:
 Input=[] #make giving hints during runtime per console or text editor possible :)
 try:
     with open("hints.txt", "r") as text_file: 
-        Input=text_file.read().split("\n")
+        Input=[z for z in text_file.read().split("\n") if z.replace(" ","")!=""]
 except:
     None
 
@@ -88,7 +88,7 @@ def Shortest_Path(start,target,M,sz):
          if active == target:
              return Reconstruct_Taken_Path(parent,start,target)
          for (px,py) in [(active[0]-1,active[1]),(active[0]+1,active[1]),(active[0],active[1]+1),(active[0],active[1]-1)]:
-             if px<0 or py<0 or px>=sz or py>=sz or (px,py) in besucht or (M[py][px]!='#' and M[py][px]!='O'):
+             if px<0 or py<0 or px>=sz or py>=sz or (px,py) in besucht or (M[px][py]!="#" and M[px][py]!="O" and M[px][py]!="1" and M[px][py]!="0"):
                  continue
              parent[(px,py)]=active
              if (px,py) not in queue:
@@ -100,6 +100,7 @@ else:
 ##########OK THE AI HAS GAINED ENOUGH KNOWLDGE TO PLAN!!! ITS TIME TO FIND THE PATH FOR THE FIRST STEP AND EXECUTE IT :)
     Y=int(Ret.replace("switch","").split("x")[0])
     X=int(Ret.replace("switch","").split("x")[1])
+    #try: #solution can also not be present (hierachic, but this is next topic, goal sheduling, advanced combinatorics etc)
     (Soly,Solx)=Shortest_Path((agenty,agentx),(Y,X),world,sizex)[1]
     if Solx<agentx:
         print "ACTION1"
@@ -113,6 +114,8 @@ else:
     if Soly<agenty:
         print "ACTION4"
         action=0
+    #except:
+    #    action=choice([0,1,2,3])
 ######################################################################################################
 
 with open("LastSight.py", "w") as text_file: text_file.write("Mem="+str(Mem)+"\nAssoc="+str(Assoc)+"\nExtracted="+str(Extracted))
