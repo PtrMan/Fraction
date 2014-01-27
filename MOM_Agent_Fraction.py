@@ -88,7 +88,7 @@ def Shortest_Path(start,target,M,sz):
          if active == target:
              return Reconstruct_Taken_Path(parent,start,target)
          for (px,py) in [(active[0]-1,active[1]),(active[0]+1,active[1]),(active[0],active[1]+1),(active[0],active[1]-1)]:
-             if px<0 or py<0 or px>=sz or py>=sz or (px,py) in besucht:# or M[px][py]!='#':
+             if px<0 or py<0 or px>=sz or py>=sz or (px,py) in besucht or M[py][px]!='#':
                  continue
              parent[(px,py)]=active
              if (px,py) not in queue:
