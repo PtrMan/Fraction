@@ -19,14 +19,14 @@ def HandleSituation(Input=[]):
     global OldStates,Extracted
     ResetKnowledge()
     Extracted=Current2=list(set(Extracted+ChainTogether(OldStates,1)+list(set([z for z in Input]))))
-    print "cur2",Current2,Input
+    #print "cur2",Current2,Input
     OldStates+=[Input] #world step finished
     for g in Current2: PrettyTell(g)  #now we need to find a way to achieve our goal with our actions, since we have to begin with one action.
     for g in Actions: #we need go through our actions and plan
         PrettyTell(g+" is active")
         Sol=PrettyTell("plan "+Goal+"?") 
         if "Path=[]" not in Sol and str(Sol)!="set([])":
-            print " my plan is: "+g+" and then "+Sol
+            #print " my plan is: "+g+" and then "+Sol
             return g
         RetractLast()
     return None
@@ -52,12 +52,12 @@ for y in range(sizey):
             Assoc[(y,x)]=(world[y][x],"rock"+str(y)+"x"+str(x)+" is not open")
         if world[y][x]=="O" and NoName(y,x):
             Assoc[(y,x)]=(world[y][x],"rock"+str(y)+"x"+str(x)+" is open")
-print agenty,agentx
+#print agenty,agentx
 NewView=[z[1] for z in [Assoc[k] for k in Assoc.keys()]]
 del Mem[0]
 Mem=Mem+[NewView]
 Actions=list(set(["switch"+z.split(" ")[0] for z in str(Mem).split("switch") if " " in z]))
-print "Actions",Actions
+#print "Actions",Actions
 OldStates=deepcopy(Mem)
 Ret=HandleSituation() #test
 
@@ -93,15 +93,19 @@ else:
 ##########OK THE AI HAS GAINED ENOUGH KNOWLDGE TO PLAN!!! ITS TIME TO FIND THE PATH FOR THE FIRST STEP AND EXECUTE IT :)
     Y=int(Ret.replace("switch","").split("x")[0])
     X=int(Ret.replace("switch","").split("x")[1])
-    (Soly,Solx)=Shortest_Path((agenty,agentx),(Y,X),world,sizex)[0]
-    if Soly>agenty:
-        action=1
-    if Soly<agenty:
+    (Soly,Solx)=Shortest_Path((agenty,agentx),(Y,X),world,sizex)[1]
+    if Solx<agentx:
+        print "ACTION1"
         action=2
     if Solx>agentx:
+        print "ACTION2"
         action=3
-    if Solx<agentx:
-        action=4
+    if Soly>agenty:
+        print "ACTION3"
+        action=1
+    if Soly<agenty:
+        print "ACTION4"
+        action=0
 ######################################################################################################
 
 with open("LastSight.py", "w") as text_file: text_file.write("Mem="+str(Mem)+"\nAssoc="+str(Assoc)+"\nExtracted="+str(Extracted))

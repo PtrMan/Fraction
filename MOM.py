@@ -5,7 +5,7 @@ import re,os
 from MOM_def import *
 def Request(s,arg="N0"): return [d.split("=")[1].replace(",","") for d in eval(PrettyTell(s)) if "=" in d and d.split("=")[0]==arg]; ReplaceRequest(Request)
 regexp_tag=lambda w: (j[1] for j in Types if re.match(j[0],w)!=None).next()
-print "I'm MOM, a general AI system created by Patrick Hammer! If you want me to output all my knowledge, write KNOWLEDGE, if you want to save it write SAVE\n"
+#print "I'm MOM, a general AI system created by Patrick Hammer! If you want me to output all my knowledge, write KNOWLEDGE, if you want to save it write SAVE\n"
 Knowledge=[]; BaseAxioms=""":-op(700,xfx,<-). :-op(450,xfx,..). :-op(1100,yfx,&).
 Vs<-[Var | Dec] :- findall(Var,maplist(call,[Dec]),Vs).
 len(A,B,T) :- Li<-[W| mem(W,A,T)], length(Li,Z), B=Z, B\==0.
@@ -124,8 +124,8 @@ def PrettyTell(txt,ret=""): #make some syntactic modifications here if needed or
 
 def powerset(iterable):
     s = list(iterable)
-    print "powerset with cardinality ",2**len(iterable)
     if len(iterable)>15: #secure powerset :D
+        print "detected critical powerset with cardinality ",2**len(iterable),", truncated it"
         return [[iterable[i]] for i in range(15)]
     return chain.from_iterable(combinations(s, r) for r in range(len(s)+1))
 
