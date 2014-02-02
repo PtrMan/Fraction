@@ -64,7 +64,7 @@ iss(rock17x12,open,T0+1,Path):- iss(switch10x16,notactive,T0,P),append([switch10
 iss(switch10x16,notactive,T0+1,Path):- iss(rock17x12,notopen,T0,P),append([rock17x12,is,notopen],P,Path).
 iss(rock17x12,notopen,T0+1,Path):- iss(rock17x12,notopen,T0,P),append([rock17x12,is,notopen],P,Path).
 iss(switch10x16,notactive,T0+1,Path):- iss(switch10x16,notactive,T0,P),append([switch10x16,is,notactive],P,Path).
-iss(switch10x16,active,T0+1,Path):- iss(switch18x15,notactive,T0,P),append([switch18x15,is,notactive],P,Path).
+iss(rock17x12,open,T0+1,Path):- iss(switch10x16,active,T0,P),append([switch10x16,is,active],P,Path).
 iss(switch18x15,active,T0+1,Path):- iss(switch10x16,active,T0,P),append([switch10x16,is,active],P,Path).
 iss(switch10x16,active,T0+1,Path):- iss(rock17x12,notopen,T0,P),append([rock17x12,is,notopen],P,Path).
 iss(rock17x12,notopen,T0+1,Path):- iss(switch10x16,notactive,T0,P),append([switch10x16,is,notactive],P,Path).
@@ -82,8 +82,8 @@ iss(switch18x15,notactive,T0+1,Path):- iss(switch10x16,active,T0,P),append([swit
 iss(switch18x15,notactive,T0+1,Path):- iss(rock17x12,open,T0,P),append([rock17x12,is,open],P,Path).
 iss(rock17x12,open,T0+1,Path):- iss(switch18x15,active,T0,P),append([switch18x15,is,active],P,Path).
 iss(switch10x16,active,T0+1,Path):- iss(rock17x12,open,T0,P),append([rock17x12,is,open],P,Path).
-iss(rock17x12,open,T0+1,Path):- iss(switch10x16,active,T0,P),append([switch10x16,is,active],P,Path).
+iss(switch10x16,active,T0+1,Path):- iss(switch18x15,notactive,T0,P),append([switch18x15,is,notactive],P,Path).
 iss(rock17x12,notopen,T0+1,Path):- iss(switch10x16,active,T0,P),append([switch10x16,is,active],P,Path).
 iss(switch18x15,notactive,T0+1,Path):- iss(switch10x16,notactive,T0,P),append([switch10x16,is,notactive],P,Path).
-mem(switch18x15,active,0) .
-iss(switch18x15,active,0,P).
+mem(switch11x14,active,0) .
+iss(switch11x14,active,0,P).
