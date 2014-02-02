@@ -25,8 +25,8 @@ def HandleSituation(Input=[]):
     for g in Actions: #we need go through our actions and plan
         PrettyTell(g+" is active")
         Sol=PrettyTell("plan "+Goal+"?") 
-        if "Path=[]" not in Sol and str(Sol)!="set([])":
-            #print " my plan is: "+g+" and then "+Sol
+        if "Path=[]" not in Sol and str(Sol)!="set([])" and g+" is active" not in str(NewView): #also recognize if action is true already so plan gets truely executed
+            print " my plan is: "+g+" and then "+Sol
             return g
         RetractLast()
     return None
