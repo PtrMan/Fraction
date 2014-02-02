@@ -145,7 +145,7 @@ void LoadLevel(const char* fn)
         if(toRead[i]=='C')
             SetCell(k,j,Cell,state,OFFCURRENT);
         else
-        if(toRead[i]=='A')
+        if(toRead[i]=='L')
             SetCell(k,j,Cell,state,AND);
         else
         if(toRead[i]=='U')

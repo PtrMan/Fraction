@@ -58,7 +58,7 @@ void Game_Thread()
                     if(state==OFFCURRENT || state==CURRENT)
                         dummy='C';
                     if(state==AND)
-                        dummy='A';
+                        dummy='L';
                     if(state==OR)
                         dummy='U';
                     if(state==NEG)
